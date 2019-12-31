@@ -1,8 +1,15 @@
 ---
+layout: post
 title: java审计入门
+slug: typography
 date: 2019-11-17 13:53:36
-categories:
+status: publish
+author: AlanDecode
+categories: 
+  - Maverick
 tags:
+  - Design
+  - Typography
 ---
 
 ## 反射相关概念
