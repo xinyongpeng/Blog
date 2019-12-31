@@ -1,7 +1,7 @@
 ---
 layout: post
 title: java审计入门
-slug: typography
+slug: java-audit
 date: 2019-11-17 13:53:36
 status: publish
 author: AlanDecode
